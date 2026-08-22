@@ -3,12 +3,14 @@ import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import api from '../../utils/api';
 import StripeCheckoutModal from '../../components/ui/StripeCheckoutModal';
+import Pagination from '../../components/ui/Pagination';
 import { HeartHandshake, DollarSign, Calendar, Lock, User, PlusCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const FundingPage = () => {
   const [fundings, setFundings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchFundings = async () => {
@@ -28,6 +30,12 @@ const FundingPage = () => {
   }, []);
 
   const totalFundCalculated = fundings.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
+
+  // Client-side 10-item pagination
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(fundings.length / itemsPerPage) || 1;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedFundings = fundings.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col">
@@ -84,44 +92,57 @@ const FundingPage = () => {
               <p className="text-[11px]">Be the first to give fund for the organization!</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-slate-900/80 text-slate-400 font-semibold uppercase tracking-wider">
-                  <tr>
-                    <th className="px-6 py-4">Contributor Name</th>
-                    <th className="px-6 py-4">User Email</th>
-                    <th className="px-6 py-4">Fund Amount</th>
-                    <th className="px-6 py-4">Funding Date</th>
-                    <th className="px-6 py-4">Stripe Reference</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-300">
-                  {fundings.map((item) => (
-                    <tr key={item._id} className="hover:bg-slate-900/40 transition">
-                      <td className="px-6 py-4 font-bold text-slate-100 flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-black text-xs">
-                          {item.userName?.[0]?.toUpperCase() || 'U'}
-                        </div>
-                        {item.userName}
-                      </td>
-                      <td className="px-6 py-4 text-slate-400 font-mono">{item.userEmail}</td>
-                      <td className="px-6 py-4 font-extrabold text-emerald-400 text-sm">
-                        ${item.amount} USD
-                      </td>
-                      <td className="px-6 py-4 text-slate-400">
-                        {new Date(item.createdAt).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric',
-                        })}
-                      </td>
-                      <td className="px-6 py-4 font-mono text-[11px] text-slate-500">
-                        {item.paymentIntentId || 'N/A'}
-                      </td>
+            <div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-900/80 text-slate-400 font-semibold uppercase tracking-wider">
+                    <tr>
+                      <th className="px-6 py-4">Contributor Name</th>
+                      <th className="px-6 py-4">User Email</th>
+                      <th className="px-6 py-4">Fund Amount</th>
+                      <th className="px-6 py-4">Funding Date</th>
+                      <th className="px-6 py-4">Stripe Reference</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                    {paginatedFundings.map((item) => (
+                      <tr key={item._id} className="hover:bg-slate-900/40 transition">
+                        <td className="px-6 py-4 font-bold text-slate-100 flex items-center gap-2">
+                          <div className="w-7 h-7 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-black text-xs">
+                            {item.userName?.[0]?.toUpperCase() || 'U'}
+                          </div>
+                          {item.userName}
+                        </td>
+                        <td className="px-6 py-4 text-slate-400 font-mono">{item.userEmail}</td>
+                        <td className="px-6 py-4 font-extrabold text-emerald-400 text-sm">
+                          ${item.amount} USD
+                        </td>
+                        <td className="px-6 py-4 text-slate-400">
+                          {new Date(item.createdAt).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                          })}
+                        </td>
+                        <td className="px-6 py-4 font-mono text-[11px] text-slate-500">
+                          {item.paymentIntentId || 'N/A'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="p-4 border-t border-slate-800 flex justify-end">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={(page) => setCurrentPage(page)}
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>
