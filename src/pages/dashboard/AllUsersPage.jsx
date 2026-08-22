@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
 import { StatusBadge } from '../../components/ui/Badge';
 import Pagination from '../../components/ui/Pagination';
-import { Users, MoreVertical, ShieldAlert, ShieldCheck, UserCheck, Shield } from 'lucide-react';
+import { Users, MoreVertical, ShieldAlert, ShieldCheck, UserCheck, Shield, User } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const AllUsersPage = () => {
@@ -104,107 +104,137 @@ const AllUsersPage = () => {
           <div>
             <div className="overflow-x-auto min-h-[350px]">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-900/80 text-slate-400 font-semibold uppercase tracking-wider">
+                <thead className="bg-slate-900/90 text-slate-300 font-bold uppercase tracking-wider border-b border-slate-800">
                   <tr>
-                    <th className="px-4 py-3.5">User</th>
-                    <th className="px-4 py-3.5">Email</th>
-                    <th className="px-4 py-3.5">Blood Group</th>
-                    <th className="px-4 py-3.5">Role</th>
-                    <th className="px-4 py-3.5">Status</th>
-                    <th className="px-4 py-3.5 text-right">Actions</th>
+                    <th className="px-4 py-4">User</th>
+                    <th className="px-4 py-4">Email</th>
+                    <th className="px-4 py-4">Blood Group</th>
+                    <th className="px-4 py-4">Role</th>
+                    <th className="px-4 py-4">Status</th>
+                    <th className="px-4 py-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-300">
-                  {users.map((u) => (
-                    <tr key={u._id} className="hover:bg-slate-900/40 transition relative">
-                      <td className="px-4 py-3.5 font-bold text-slate-100 flex items-center gap-3">
-                        <img
-                          src={u.avatar || 'https://i.ibb.co/mJR6G1b/avatar-placeholder.png'}
-                          alt={u.name}
-                          className="w-9 h-9 rounded-xl object-cover ring-1 ring-slate-700"
-                        />
-                        <div>
-                          <p className="font-bold text-white">{u.name}</p>
-                          <p className="text-[10px] text-slate-400">
-                            {u.upazila}, {u.district}
-                          </p>
-                        </div>
-                      </td>
-
-                      <td className="px-4 py-3.5 text-slate-400 font-mono">{u.email}</td>
-
-                      <td className="px-4 py-3.5 font-extrabold text-rose-400">{u.bloodGroup}</td>
-
-                      <td className="px-4 py-3.5">
-                        <StatusBadge status={u.role} />
-                      </td>
-
-                      <td className="px-4 py-3.5">
-                        <StatusBadge status={u.status} />
-                      </td>
-
-                      <td className="px-4 py-3.5 text-right relative">
-                        {/* 3-Dot Action Menu Button */}
-                        <button
-                          onClick={() => setActiveDropdownId(activeDropdownId === u._id ? null : u._id)}
-                          className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition"
-                        >
-                          <MoreVertical className="w-4 h-4" />
-                        </button>
-
-                        {/* Dropdown Menu Popup */}
-                        {activeDropdownId === u._id && (
-                          <div className="absolute right-4 top-12 w-48 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-top-1 text-left space-y-1">
-                            {/* Block / Unblock Toggle */}
-                            {u.status === 'active' ? (
-                              <button
-                                onClick={() => handleStatusToggle(u._id, 'active')}
-                                className="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-rose-400 hover:bg-rose-500/10 rounded-xl transition"
-                              >
-                                <ShieldAlert className="w-4 h-4" /> Block User
-                              </button>
-                            ) : (
-                              <button
-                                onClick={() => handleStatusToggle(u._id, 'blocked')}
-                                className="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-emerald-400 hover:bg-emerald-500/10 rounded-xl transition"
-                              >
-                                <ShieldCheck className="w-4 h-4" /> Unblock User
-                              </button>
-                            )}
-
-                            {/* Make Volunteer */}
-                            {u.role !== 'volunteer' && (
-                              <button
-                                onClick={() => handleRoleChange(u._id, 'volunteer')}
-                                className="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-cyan-400 hover:bg-cyan-500/10 rounded-xl transition"
-                              >
-                                <UserCheck className="w-4 h-4" /> Make Volunteer
-                              </button>
-                            )}
-
-                            {/* Make Admin */}
-                            {u.role !== 'admin' && (
-                              <button
-                                onClick={() => handleRoleChange(u._id, 'admin')}
-                                className="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-purple-400 hover:bg-purple-500/10 rounded-xl transition"
-                              >
-                                <Shield className="w-4 h-4" /> Make Admin
-                              </button>
-                            )}
+                <tbody className="divide-y divide-slate-800/80 text-slate-300">
+                  {users.map((u) => {
+                    const isDropdownActive = activeDropdownId === u._id;
+                    return (
+                      <tr
+                        key={u._id}
+                        className={`transition relative ${
+                          isDropdownActive
+                            ? 'bg-slate-800/80 ring-1 ring-rose-500/40'
+                            : 'hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <td className="px-4 py-4 font-bold text-slate-100 flex items-center gap-3">
+                          <img
+                            src={u.avatar || 'https://i.ibb.co/mJR6G1b/avatar-placeholder.png'}
+                            alt={u.name}
+                            className="w-10 h-10 rounded-xl object-cover ring-2 ring-slate-700"
+                          />
+                          <div>
+                            <p className="font-bold text-white text-sm">{u.name}</p>
+                            <p className="text-[11px] text-slate-400">
+                              {u.upazila}, {u.district}
+                            </p>
                           </div>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+
+                        <td className="px-4 py-4 text-slate-300 font-mono font-medium">{u.email}</td>
+
+                        <td className="px-4 py-4 font-black text-rose-400 text-sm">{u.bloodGroup}</td>
+
+                        <td className="px-4 py-4">
+                          <StatusBadge status={u.role} />
+                        </td>
+
+                        <td className="px-4 py-4">
+                          <StatusBadge status={u.status} />
+                        </td>
+
+                        <td className="px-4 py-4 text-right relative">
+                          {/* High Contrast 3-Dot Action Menu Button */}
+                          <button
+                            onClick={() => setActiveDropdownId(isDropdownActive ? null : u._id)}
+                            className={`p-2.5 rounded-xl transition border shadow-sm ${
+                              isDropdownActive
+                                ? 'bg-rose-600 text-white border-rose-500 shadow-lg shadow-rose-950/50 scale-105'
+                                : 'bg-slate-800/90 hover:bg-rose-600 hover:text-white text-slate-200 border-slate-700/80'
+                            }`}
+                            title="User Action Menu"
+                          >
+                            <MoreVertical className="w-4 h-4" />
+                          </button>
+
+                          {/* Dropdown Menu Popup */}
+                          {isDropdownActive && (
+                            <div className="absolute right-4 top-14 w-52 rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-top-2 text-left space-y-1.5 ring-1 ring-slate-700">
+                              {/* Block / Unblock Toggle */}
+                              {u.status === 'active' ? (
+                                <button
+                                  onClick={() => handleStatusToggle(u._id, 'active')}
+                                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-bold text-rose-400 bg-rose-500/10 hover:bg-rose-600 hover:text-white rounded-xl transition"
+                                >
+                                  <ShieldAlert className="w-4 h-4" /> Block User
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={() => handleStatusToggle(u._id, 'blocked')}
+                                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-bold text-emerald-400 bg-emerald-500/10 hover:bg-emerald-600 hover:text-white rounded-xl transition"
+                                >
+                                  <ShieldCheck className="w-4 h-4" /> Unblock User
+                                </button>
+                              )}
+
+                              {/* Make Donor */}
+                              {u.role !== 'donor' && (
+                                <button
+                                  onClick={() => handleRoleChange(u._id, 'donor')}
+                                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-bold text-amber-400 bg-amber-500/10 hover:bg-amber-500 hover:text-slate-950 rounded-xl transition"
+                                >
+                                  <User className="w-4 h-4" /> Make Donor
+                                </button>
+                              )}
+
+                              {/* Make Volunteer */}
+                              {u.role !== 'volunteer' && (
+                                <button
+                                  onClick={() => handleRoleChange(u._id, 'volunteer')}
+                                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-bold text-cyan-400 bg-cyan-500/10 hover:bg-cyan-500 hover:text-slate-950 rounded-xl transition"
+                                >
+                                  <UserCheck className="w-4 h-4" /> Make Volunteer
+                                </button>
+                              )}
+
+                              {/* Make Admin */}
+                              {u.role !== 'admin' && (
+                                <button
+                                  onClick={() => handleRoleChange(u._id, 'admin')}
+                                  className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-bold text-purple-400 bg-purple-500/10 hover:bg-purple-600 hover:text-white rounded-xl transition"
+                                >
+                                  <Shield className="w-4 h-4" /> Make Admin
+                                </button>
+                              )}
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
 
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={(p) => setCurrentPage(p)}
-            />
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="p-4 border-t border-slate-800 flex justify-end">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={(page) => setCurrentPage(page)}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
