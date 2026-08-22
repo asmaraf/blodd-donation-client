@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import {
   Droplet,
   LayoutDashboard,
@@ -14,19 +15,22 @@ import {
   Home,
   ShieldCheck,
   HeartHandshake,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { StatusBadge } from '../ui/Badge';
 
 const DashboardLayout = () => {
   const { user, logout, isAdmin, isVolunteer } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navItemClass = ({ isActive }) =>
-    `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition ${
+    `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition ${
       isActive
-        ? 'bg-gradient-to-r from-rose-600 to-rose-700 text-white shadow-md shadow-rose-950/40'
-        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/80'
+        ? 'bg-gradient-to-r from-rose-600 to-rose-700 !text-white shadow-md shadow-rose-950/40'
+        : 'text-slate-400 hover:text-rose-500 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900/80'
     }`;
 
   const renderNavLinks = () => (
@@ -136,11 +140,11 @@ const DashboardLayout = () => {
   );
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row transition-colors">
       {/* Sidebar for Desktop */}
       <aside className="hidden md:flex flex-col w-64 border-r border-slate-800/80 bg-slate-950/90 glass-panel shrink-0 min-h-screen sticky top-0">
-        {/* Brand */}
-        <div className="p-5 border-b border-slate-800/80 flex items-center justify-between">
+        {/* Brand Header with Theme Toggle Icon */}
+        <div className="p-4 border-b border-slate-800/80 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <div className="p-2 rounded-xl bg-gradient-to-tr from-rose-600 to-rose-500 shadow-md">
               <Droplet className="w-5 h-5 text-white fill-white" />
@@ -149,6 +153,16 @@ const DashboardLayout = () => {
               Blood<span className="text-rose-500">Life</span>
             </span>
           </Link>
+
+          {/* Theme Toggle Icon Only */}
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle Light/Dark Theme"
+            title={theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-amber-400 hover:text-amber-300 hover:border-slate-700 transition shadow-sm shrink-0"
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4 text-slate-700" />}
+          </button>
         </div>
 
         {/* User Card */}
@@ -193,14 +207,23 @@ const DashboardLayout = () => {
           <div className="p-1.5 rounded-lg bg-rose-600">
             <Droplet className="w-4 h-4 text-white fill-white" />
           </div>
-          <span className="text-base font-extrabold text-white">BloodLife Dashboard</span>
+          <span className="text-base font-extrabold text-white">BloodLife</span>
         </Link>
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-2 text-slate-300 bg-slate-900 border border-slate-800 rounded-xl"
-        >
-          {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle Light/Dark Theme"
+            className="p-2 text-amber-400 bg-slate-900 border border-slate-800 rounded-xl"
+          >
+            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5 text-slate-700" />}
+          </button>
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 text-slate-300 bg-slate-900 border border-slate-800 rounded-xl"
+          >
+            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Sidebar Overlay Drawer */}
