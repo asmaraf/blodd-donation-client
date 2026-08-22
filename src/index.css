@@ -4,7 +4,11 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 selection:bg-rose-500 selection:text-white;
+    @apply bg-slate-950 text-slate-100 selection:bg-rose-500 selection:text-white transition-colors duration-300;
+  }
+
+  body.light {
+    @apply bg-slate-50 text-slate-900 selection:bg-rose-500 selection:text-white;
   }
 }
 
@@ -18,16 +22,24 @@
   background: #0f172a;
 }
 
+body.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #334155;
   border-radius: 4px;
+}
+
+body.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #e11d48;
 }
 
-/* Glassmorphism utilities */
+/* Glassmorphism Dark utilities */
 .glass-panel {
   background: rgba(15, 23, 42, 0.75);
   backdrop-filter: blur(16px);
@@ -50,6 +62,183 @@
   transform: translateY(-4px);
   border-color: rgba(225, 29, 72, 0.4);
   box-shadow: 0 12px 30px -10px rgba(225, 29, 72, 0.25);
+}
+
+/* Glassmorphism Light utilities */
+body.light .glass-panel {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.06);
+}
+
+body.light .glass-card {
+  background: #ffffff;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.05);
+}
+
+body.light .glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(225, 29, 72, 0.5);
+  box-shadow: 0 12px 30px -10px rgba(225, 29, 72, 0.15);
+}
+
+/* Hero Section Light Gradient Override */
+body.light section.bg-gradient-to-b,
+body.light div.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, #fff1f2 0%, #f8fafc 60%, #f8fafc 100%) !important;
+}
+
+/* Light Mode Background Overrides */
+body.light .bg-slate-950 {
+  background-color: #f8fafc !important;
+}
+
+body.light .bg-slate-900 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.light .bg-slate-900\/40,
+body.light .bg-slate-900\/60,
+body.light .bg-slate-900\/80,
+body.light .bg-slate-900\/90 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.light .border-slate-800,
+body.light .border-slate-900,
+body.light .border-slate-700\/80 {
+  border-color: #cbd5e1 !important;
+}
+
+/* High Contrast Light Mode Text Styling */
+body.light h1,
+body.light h2,
+body.light h3,
+body.light h4,
+body.light h5,
+body.light h6 {
+  color: #0f172a !important;
+}
+
+body.light .text-white {
+  color: #0f172a !important;
+}
+
+body.light .text-slate-100 {
+  color: #0f172a !important;
+}
+
+body.light .text-slate-200 {
+  color: #1e293b !important;
+}
+
+body.light .text-slate-300 {
+  color: #334155 !important;
+}
+
+body.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+body.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* Light mode table row hover and action button fixes */
+body.light tr:hover {
+  background-color: #f1f5f9 !important;
+}
+
+body.light button.bg-slate-900,
+body.light button.bg-slate-800\/90,
+body.light button.bg-slate-800 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+body.light button.bg-slate-900:hover,
+body.light button.bg-slate-800\/90:hover,
+body.light button.bg-slate-800:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Light mode sidebar inactive link hover fix */
+body.light aside a:hover:not(.bg-gradient-to-r) {
+  background-color: #fff1f2 !important;
+  color: #e11d48 !important;
+}
+
+body.light aside a:hover:not(.bg-gradient-to-r) * {
+  color: #e11d48 !important;
+}
+
+/* EXCEPTION: Pure White Text for Active Red Buttons, Active NavLinks, Badges */
+body.light .bg-rose-600,
+body.light .bg-rose-700,
+body.light .bg-rose-800,
+body.light .bg-emerald-600,
+body.light .bg-gradient-to-r,
+body.light .bg-gradient-to-tr,
+body.light button.bg-rose-600,
+body.light a.bg-rose-600,
+body.light a.bg-gradient-to-r {
+  background-image: linear-gradient(to right, #e11d48, #be123c) !important;
+  color: #ffffff !important;
+  border-color: #e11d48 !important;
+}
+
+body.light .bg-rose-600 *,
+body.light .bg-rose-700 *,
+body.light .bg-rose-800 *,
+body.light .bg-emerald-600 *,
+body.light .bg-gradient-to-r *,
+body.light .bg-gradient-to-tr *,
+body.light button.bg-rose-600 *,
+body.light a.bg-rose-600 *,
+body.light a.bg-gradient-to-r * {
+  color: #ffffff !important;
+}
+
+/* Explicit Light mode styling for Login button */
+body.light a[href="/login"] {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.light a[href="/login"]:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Fix muddy shadows in light mode */
+body.light .shadow-rose-950\/50,
+body.light .shadow-rose-950\/60,
+body.light .shadow-rose-950\/40 {
+  box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.25) !important;
+}
+
+/* Input / Select / Textarea in light mode */
+body.light input,
+body.light select,
+body.light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+body.light input::placeholder,
+body.light textarea::placeholder {
+  color: #94a3b8 !important;
 }
 
 /* Animated gradient text */
