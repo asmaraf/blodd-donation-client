@@ -132,29 +132,29 @@ const AllDonationRequestsPage = () => {
                 </thead>
                 <tbody className="divide-y divide-slate-800/60 text-slate-300">
                   {requests.map((req) => (
-                    <tr key={req._id} className="hover:bg-slate-900/40 transition">
-                      <td className="px-4 py-3.5 font-bold text-slate-100">{req.recipientName}</td>
+                    <tr key={req._id} className="hover:bg-slate-800/60 transition">
+                      <td className="px-4 py-4 font-bold text-slate-100">{req.recipientName}</td>
 
-                      <td className="px-4 py-3.5">
-                        <p className="font-semibold text-white">{req.requesterName}</p>
-                        <p className="text-[10px] text-slate-400 font-mono">{req.requesterEmail}</p>
+                      <td className="px-4 py-4">
+                        <p className="font-bold text-white">{req.requesterName}</p>
+                        <p className="text-[11px] text-slate-400 font-mono">{req.requesterEmail}</p>
                       </td>
 
-                      <td className="px-4 py-3.5 text-slate-400">
+                      <td className="px-4 py-4 text-slate-300">
                         {req.recipientUpazila}, {req.recipientDistrict}
                       </td>
 
-                      <td className="px-4 py-3.5">
-                        <div>{req.donationDate}</div>
-                        <div className="text-[10px] text-slate-500">{req.donationTime}</div>
+                      <td className="px-4 py-4">
+                        <div className="font-semibold text-slate-200">{req.donationDate}</div>
+                        <div className="text-[11px] text-slate-400">{req.donationTime}</div>
                       </td>
 
-                      <td className="px-4 py-3.5">
+                      <td className="px-4 py-4">
                         <BloodGroupBadge bloodGroup={req.bloodGroup} />
                       </td>
 
                       {/* Status Update (Allowed for BOTH Admin and Volunteer) */}
-                      <td className="px-4 py-3.5">
+                      <td className="px-4 py-4">
                         <div className="space-y-1">
                           <StatusBadge status={req.status} />
 
@@ -163,7 +163,7 @@ const AllDonationRequestsPage = () => {
                             <select
                               value={req.status}
                               onChange={(e) => handleStatusUpdate(req._id, e.target.value)}
-                              className="bg-slate-900 border border-slate-700 text-[10px] text-slate-200 rounded-lg px-2 py-1 outline-none"
+                              className="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl px-2.5 py-1 outline-none focus:border-rose-500 transition"
                             >
                               <option value="pending">Pending</option>
                               <option value="inprogress">In Progress</option>
@@ -174,7 +174,7 @@ const AllDonationRequestsPage = () => {
                         </div>
                       </td>
 
-                      <td className="px-4 py-3.5 text-[11px]">
+                      <td className="px-4 py-4 text-xs">
                         {req.donorInfo?.name ? (
                           <div>
                             <p className="font-bold text-white">{req.donorInfo.name}</p>
@@ -185,15 +185,15 @@ const AllDonationRequestsPage = () => {
                         )}
                       </td>
 
-                      <td className="px-4 py-3.5 text-right">
-                        <div className="flex items-center justify-end gap-1.5">
+                      <td className="px-4 py-4 text-right">
+                        <div className="flex items-center justify-end gap-2">
                           {/* View details - Allowed for all */}
                           <button
                             onClick={() => navigate(`/donation-requests/${req._id}`)}
                             title="View Details"
-                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition"
+                            className="p-2 rounded-xl bg-slate-800/90 hover:bg-rose-600 hover:text-white text-slate-300 border border-slate-700/80 transition shadow-sm"
                           >
-                            <Eye className="w-3.5 h-3.5" />
+                            <Eye className="w-4 h-4" />
                           </button>
 
                           {/* Edit & Delete ONLY ALLOWED FOR ADMIN */}
@@ -202,20 +202,20 @@ const AllDonationRequestsPage = () => {
                               <button
                                 onClick={() => navigate(`/dashboard/edit-donation-request/${req._id}`)}
                                 title="Edit Request (Admin Only)"
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-blue-400 transition"
+                                className="p-2 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:text-white text-blue-400 border border-slate-700/80 transition shadow-sm"
                               >
-                                <Edit className="w-3.5 h-3.5" />
+                                <Edit className="w-4 h-4" />
                               </button>
                               <button
                                 onClick={() => setDeleteTargetId(req._id)}
                                 title="Delete Request (Admin Only)"
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-rose-400 transition"
+                                className="p-2 rounded-xl bg-slate-800/90 hover:bg-rose-600 hover:text-white text-rose-400 border border-slate-700/80 transition shadow-sm"
                               >
-                                <Trash2 className="w-3.5 h-3.5" />
+                                <Trash2 className="w-4 h-4" />
                               </button>
                             </>
                           ) : (
-                            <span className="text-[10px] text-slate-600 italic">No Edit/Del</span>
+                            <span className="text-[10px] text-slate-500 italic">No Edit/Del</span>
                           )}
                         </div>
                       </td>
