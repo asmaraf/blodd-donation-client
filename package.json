@@ -10,10 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^2.0.5",
     "@stripe/react-stripe-js": "^2.7.0",
     "@stripe/stripe-js": "^3.3.0",
     "axios": "^1.6.8",
     "framer-motion": "^11.1.7",
+    "gsap": "^3.15.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "lucide-react": "^0.372.0",
