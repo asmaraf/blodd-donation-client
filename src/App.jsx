@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { Toaster } from 'react-hot-toast';
 
 // Route Guards
@@ -33,87 +34,89 @@ import AllDonationRequestsPage from './pages/dashboard/AllDonationRequestsPage';
 
 function App() {
   return (
-    <AuthProvider>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style: {
-            background: '#0f172a',
-            color: '#f8fafc',
-            border: '1px solid #334155',
-            fontSize: '13px',
-            borderRadius: '12px',
-          },
-        }}
-      />
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/donation-requests" element={<DonationRequestsPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-
-        {/* Private Standalone Routes */}
-        <Route
-          path="/donation-requests/:id"
-          element={
-            <PrivateRoute>
-              <DonationDetailsPage />
-            </PrivateRoute>
-          }
+    <ThemeProvider>
+      <AuthProvider>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: '#0f172a',
+              color: '#f8fafc',
+              border: '1px solid #334155',
+              fontSize: '13px',
+              borderRadius: '12px',
+            },
+          }}
         />
-        <Route
-          path="/funding"
-          element={
-            <PrivateRoute>
-              <FundingPage />
-            </PrivateRoute>
-          }
-        />
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/donation-requests" element={<DonationRequestsPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-        {/* Protected Dashboard Shell Routes */}
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <DashboardLayout />
-            </PrivateRoute>
-          }
-        >
-          <Route index element={<DashboardHome />} />
-          <Route path="profile" element={<ProfilePage />} />
-
-          {/* Donor specific */}
-          <Route path="my-donation-requests" element={<MyDonationRequestsPage />} />
-          <Route path="create-donation-request" element={<CreateDonationRequestPage />} />
-          <Route path="edit-donation-request/:id" element={<EditDonationRequestPage />} />
-
-          {/* Admin specific */}
+          {/* Private Standalone Routes */}
           <Route
-            path="all-users"
+            path="/donation-requests/:id"
             element={
-              <AdminRoute>
-                <AllUsersPage />
-              </AdminRoute>
+              <PrivateRoute>
+                <DonationDetailsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/funding"
+            element={
+              <PrivateRoute>
+                <FundingPage />
+              </PrivateRoute>
             }
           />
 
-          {/* Admin & Volunteer specific */}
+          {/* Protected Dashboard Shell Routes */}
           <Route
-            path="all-blood-donation-request"
+            path="/dashboard"
             element={
-              <VolunteerRoute>
-                <AllDonationRequestsPage />
-              </VolunteerRoute>
+              <PrivateRoute>
+                <DashboardLayout />
+              </PrivateRoute>
             }
-          />
-        </Route>
+          >
+            <Route index element={<DashboardHome />} />
+            <Route path="profile" element={<ProfilePage />} />
 
-        {/* Catch-all redirect to Home */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </AuthProvider>
+            {/* Donor specific */}
+            <Route path="my-donation-requests" element={<MyDonationRequestsPage />} />
+            <Route path="create-donation-request" element={<CreateDonationRequestPage />} />
+            <Route path="edit-donation-request/:id" element={<EditDonationRequestPage />} />
+
+            {/* Admin specific */}
+            <Route
+              path="all-users"
+              element={
+                <AdminRoute>
+                  <AllUsersPage />
+                </AdminRoute>
+              }
+            />
+
+            {/* Admin & Volunteer specific */}
+            <Route
+              path="all-blood-donation-request"
+              element={
+                <VolunteerRoute>
+                  <AllDonationRequestsPage />
+                </VolunteerRoute>
+              }
+            />
+          </Route>
+
+          {/* Catch-all redirect to Home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

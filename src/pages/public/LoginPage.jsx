@@ -90,23 +90,7 @@ const LoginPage = () => {
             </button>
           </form>
 
-          {/* Preset Admin Demo Quick-Fill */}
-          <div className="p-3 bg-slate-900/80 border border-slate-800 rounded-2xl text-[11px] space-y-1">
-            <span className="text-slate-400 font-semibold block">Demo Admin Credentials:</span>
-            <div className="flex items-center justify-between text-slate-300">
-              <span>Email: <code className="text-rose-400">admin@bloodlife.com</code></span>
-              <span>Pass: <code className="text-rose-400">Admin123!</code></span>
-            </div>
-            <button
-              onClick={() => {
-                setEmail('admin@bloodlife.com');
-                setPassword('Admin123!');
-              }}
-              className="text-[10px] text-rose-400 hover:underline font-semibold block mt-1"
-            >
-              Auto-fill Admin Credentials
-            </button>
-          </div>
+
 
           <div className="text-center pt-2 border-t border-slate-800/80">
             <p className="text-xs text-slate-400">
