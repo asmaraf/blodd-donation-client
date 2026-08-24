@@ -5,6 +5,7 @@ import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import SplineHero3D from '../../components/ui/SplineHero3D';
 import api from '../../utils/api';
+import { useAuth } from '../../context/AuthContext';
 import {
   Droplet,
   Search,
@@ -20,10 +21,12 @@ import {
   Users,
   Activity,
   CheckCircle2,
+  ArrowRight,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const HomePage = () => {
+  const { user } = useAuth();
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [totalFunding, setTotalFunding] = useState(0);
@@ -179,11 +182,12 @@ const HomePage = () => {
 
               <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <Link
-                  to="/register"
+                  to={user ? "/dashboard" : "/register"}
                   className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-base rounded-2xl shadow-xl shadow-rose-950/60 flex items-center justify-center gap-2.5 transition transform hover:-translate-y-0.5"
                 >
                   <UserPlus className="w-5 h-5 text-white" />
-                  Join as a donor
+                  {user ? 'Go to Dashboard' : 'Become a Donor'}
+                  <ArrowRight className="w-4 h-4 ml-0.5" />
                 </Link>
 
                 <Link

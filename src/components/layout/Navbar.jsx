@@ -8,6 +8,7 @@ import {
   LogOut,
   HeartHandshake,
   FileText,
+  Search,
   Menu,
   X,
   ChevronDown,
@@ -51,6 +52,18 @@ const Navbar = () => {
           >
             <FileText className="w-4 h-4" />
             Donation Requests
+          </Link>
+
+          <Link
+            to="/search"
+            className={`text-sm font-semibold transition flex items-center gap-1.5 ${
+              isActivePath('/search')
+                ? 'text-rose-400 font-bold'
+                : 'text-slate-300 hover:text-white'
+            }`}
+          >
+            <Search className="w-4 h-4" />
+            Search Donor
           </Link>
 
           {user && (
@@ -172,6 +185,14 @@ const Navbar = () => {
             className="block text-sm font-semibold text-slate-200 py-2 border-b border-slate-800/60"
           >
             Donation Requests
+          </Link>
+
+          <Link
+            to="/search"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-sm font-semibold text-slate-200 py-2 border-b border-slate-800/60"
+          >
+            Search Donor
           </Link>
 
           {user && (
