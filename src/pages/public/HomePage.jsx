@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import SplineHero3D from '../../components/ui/SplineHero3D';
+import api from '../../utils/api';
 import {
   Droplet,
   Search,
@@ -25,6 +26,7 @@ import toast from 'react-hot-toast';
 const HomePage = () => {
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [totalFunding, setTotalFunding] = useState(0);
 
   // GSAP Animation Refs
   const orbRef = useRef(null);
@@ -111,6 +113,20 @@ const HomePage = () => {
     });
 
     return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const res = await api.get('/stats/public-summary');
+        if (res.data && typeof res.data.totalFunding === 'number') {
+          setTotalFunding(res.data.totalFunding);
+        }
+      } catch (err) {
+        console.error('Failed to load total funding summary', err);
+      }
+    };
+    fetchSummary();
   }, []);
 
   const handleContactSubmit = (e) => {
@@ -204,8 +220,10 @@ const HomePage = () => {
               <p className="text-xs text-slate-400 font-medium">Districts Covered</p>
             </div>
             <div>
-              <p className="text-2xl sm:text-3xl font-extrabold text-white">15 Min</p>
-              <p className="text-xs text-slate-400 font-medium">Avg Response Time</p>
+              <p className="text-2xl sm:text-3xl font-extrabold text-teal-400">
+                ${totalFunding.toLocaleString()} USD
+              </p>
+              <p className="text-xs text-slate-400 font-medium">Total Donation Fund</p>
             </div>
           </div>
         </div>
