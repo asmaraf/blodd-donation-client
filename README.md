@@ -1,77 +1,154 @@
-# 🩸 BloodLife - Client Application (Frontend)
+# 🩸 BloodLife - Blood Donation Management System
 
 [![Live Site](https://img.shields.io/badge/Live_Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://blodd-donation-client.vercel.app/)
-[![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v3-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
+
+BloodLife is a modern blood donation management platform designed to connect voluntary blood donors with individuals and hospitals in need of blood across Bangladesh.
 
 ---
 
 ## 📌 Project Overview
-**BloodLife Client** is the responsive, modern frontend web application for the BloodLife blood donation management system. It connects voluntary blood donors with individuals and hospitals in critical need across Bangladesh. Built with React 18, Vite, and Tailwind CSS, it offers a seamless experience with role-based dashboards, real-time donation requests, location-based donor search with PDF export, and Stripe donation funding.
+
+**BloodLife Client** is the frontend application of the BloodLife blood donation management system.
+
+The platform provides an intuitive and responsive experience for donors, volunteers, and administrators. Users can search for blood donors by location and blood group, create and manage donation requests, track request statuses, and contribute funds through Stripe.
+
+The application is built with **React 18, Vite, Tailwind CSS, React Router, and modern frontend libraries**.
 
 ---
 
-## 📸 Application Screenshot & Preview
+## 📸 Application Screenshot
 
-> *Add your platform screenshot below or replace the URL:*
-
-![BloodLife Application Banner](https://images.unsplash.com/photo-1615461066841-6116e61058f4?q=80&w=1200&auto=format&fit=crop)
-
----
-
-## 🚀 Live Demo & Relevant Links
-- 🌐 **Live Frontend Application**: [https://blodd-donation-client.vercel.app/](https://blodd-donation-client.vercel.app/)
-- ⚙️ **Live Backend API**: [https://blodd-donation-server.onrender.com](https://blodd-donation-server.onrender.com)
-- 📁 **Server Repository**: [BloodLife Server](https://github.com/asm-araf/blodd-donation-server)
-- 👤 **Author**: Abu Saleh MD Araf ([@asm-araf](https://github.com/asm-araf))
-
----
-
-## 🔑 Demo Admin Credentials
-- **Email**: `admin@bloodlife.com`
-- **Password**: `Admin123!`
-
----
-
-## 🛠️ Main Technologies Used
-- **Frontend Core**: React 18 (Functional components, Hooks, Context API)
-- **Build Tool**: Vite 5 (Fast HMR & optimized production bundling)
-- **Styling**: Tailwind CSS, PostCSS, Autoprefixer (Modern dark/light glassmorphic UI)
-- **Routing**: React Router DOM (v6) with Protected & Role-guarded Routes
-- **HTTP Client**: Axios (with base URL configurations & JWT interceptors)
-- **Icons & Animations**: Lucide React, Framer Motion, GSAP, Spline 3D
-- **Payment Processing**: Stripe Elements (`@stripe/react-stripe-js`)
-- **Reporting & Data Export**: jsPDF & html2canvas (Donor report export)
-- **Data Visualization**: Recharts (Dynamic analytics charts)
-- **Notifications**: React Hot Toast
-
----
+![BloodLife Application](assets/Screenshot.png)
 
 ## ✨ Key Features
-1. **Interactive Public Portal**:
-   - **Hero Section**: 3D interactive graphics, quick call-to-action buttons for donors and seekers.
-   - **Live Counters**: Dynamic statistics showing active donors, total requests, and saved lives.
-   - **Direct Search (`/search`)**: Real-time donor filtering by blood group, district, and upazila with Bangladesh Geocode data. Includes **one-click PDF Download**.
-   - **Donation Requests Feed (`/donation-requests`)**: Browse pending urgent requests with direct link to details.
 
-2. **Role-Based Authentication & Authorization (RBAC)**:
-   - **Donor Role**: Create and track donation requests (`pending` ➔ `inprogress` ➔ `done` / `canceled`), update personal profile.
-   - **Volunteer Role**: Review donation requests, filter by status, and update request progression.
-   - **Admin Role**: Comprehensive control to manage users (activate/block, role promotion), manage requests, and inspect financial funding statistics.
+### 🩸 Blood Donor Search
 
-3. **User Profile & State Protection**:
-   - Non-editable profile preview with toggleable "Edit" mode keeping email strictly locked.
-   - Token-backed session persistence (users stay logged in upon page reload).
+- Search donors by blood group.
+- Filter donors by district and upazila.
+- Location-based donor discovery.
+- Bangladesh geolocation data integration.
+- Export donor search results as PDF.
 
-4. **Stripe Funding & Contribution (`/funding`)**:
-   - Integrated Stripe payment modal allowing users to contribute funds directly to the blood organization.
+### 📋 Donation Requests
+
+- Browse active blood donation requests.
+- Create new donation requests.
+- Track donation request status.
+- Update request progress.
+- Cancel completed or unnecessary requests.
+
+### 🔐 Authentication & Authorization
+
+- Secure user authentication.
+- JWT-based session management.
+- Protected routes.
+- Role-based access control.
+- Donor, Volunteer, and Admin roles.
+- Persistent login sessions.
+
+### 👤 User Profile
+
+- View personal profile information.
+- Update profile details.
+- Protected email information.
+- User session persistence across page reloads.
+
+### 👨‍💼 Role-Based Dashboards
+
+**Donor**
+- Create donation requests.
+- Track donation progress.
+- Manage personal profile.
+
+**Volunteer**
+- Review donation requests.
+- Filter requests by status.
+- Update request progression.
+
+**Admin**
+- Manage users.
+- Activate or block users.
+- Promote user roles.
+- Manage donation requests.
+- View funding statistics.
+
+### 💳 Stripe Funding
+
+- Stripe payment integration.
+- Secure contribution flow.
+- Funding and contribution management.
+
+### 📊 Analytics
+
+- Dynamic statistics.
+- Donation and funding insights.
+- Interactive charts using Recharts.
+
+### 🎨 Modern UI/UX
+
+- Fully responsive design.
+- Dark and light mode.
+- Glassmorphism UI.
+- Smooth animations.
+- Interactive 3D elements.
+- Custom loading animations.
+- Custom 404 page.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- React 18
+- Vite 5
+- Tailwind CSS
+- PostCSS
+- Autoprefixer
+
+### Routing & State
+
+- React Router DOM
+- Context API
+
+### HTTP & Authentication
+
+- Axios
+- JWT-based authentication
+
+### UI, Animation & Icons
+
+- Lucide React
+- Framer Motion
+- GSAP
+- Spline 3D
+
+### Payment
+
+- Stripe Elements
+- @stripe/react-stripe-js
+- @stripe/stripe-js
+
+### Data Visualization & Reporting
+
+- Recharts
+- jsPDF
+- html2canvas
+
+### Notifications
+
+- React Hot Toast
 
 ---
 
 ## 📦 Dependencies
+
 ```json
-"dependencies": {
+{
   "@splinetool/react-spline": "^4.1.0",
   "@splinetool/runtime": "^2.0.5",
   "@stripe/react-stripe-js": "^2.7.0",
@@ -92,40 +169,140 @@
 
 ---
 
-## 💻 Local Machine Setup & Installation Guide
+## 🚀 Getting Started
 
-Follow these steps to run the client application locally on your computer:
+Follow these steps to run the BloodLife client application locally.
 
-### 1. Clone the repository
+### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/asm-araf/blodd-donation-client.git
+```
+
+### 2. Navigate to the Project
+
+```bash
 cd blodd-donation-client
 ```
 
-### 2. Install dependencies
+### 3. Install Dependencies
+
 ```bash
 npm install
 ```
 
-### 3. Setup Environment Variables
-Create a `.env` file in the root of the `client` directory by copying `.env.example`:
-```bash
-cp .env.example .env
-```
-Add the required environment values:
+### 4. Configure Environment Variables
+
+Create a `.env` file in the project root.
+
 ```env
 VITE_API_BASE_URL=http://localhost:5000/api
 VITE_STRIPE_PUBLIC_KEY=your_stripe_publishable_key_here
 ```
 
-### 4. Run the development server
+> Never commit your private API keys or secret credentials to GitHub.
+
+### 5. Start the Development Server
+
 ```bash
 npm run dev
 ```
-Open your browser and navigate to: `http://localhost:5173`
 
-### 5. Build for Production
+The application will be available at:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## 🏗️ Build for Production
+
+Create an optimized production build:
+
 ```bash
 npm run build
 ```
-The optimized production files will be generated in the `dist` folder.
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+The production files will be generated in the `dist` directory.
+
+---
+
+## 📂 Project Structure
+
+```text
+blodd-donation-client
+│
+├── public/
+│
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── context/
+│   ├── hooks/
+│   ├── layouts/
+│   ├── pages/
+│   ├── routes/
+│   ├── services/
+│   └── main.jsx
+│
+├── .env.example
+├── .gitignore
+├── index.html
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+---
+
+## 🌐 Live Demo & Relevant Links
+
+### Frontend
+
+🔗 **Live Application:**  
+https://blodd-donation-client.vercel.app/
+
+### Backend
+
+🔗 **Live API:**  
+https://blodd-donation-server.onrender.com
+
+### Server Repository
+
+🔗 **GitHub Repository:**  
+https://github.com/asm-araf/blodd-donation-server
+
+---
+
+## 👤 Demo Admin Credentials
+
+For demonstration purposes:
+
+```text
+Email: admin@bloodlife.com
+Password: Admin123!
+```
+
+> These credentials should only be used for the deployed demo environment.
+
+---
+
+## 👨‍💻 Author
+
+**Abu Saleh MD Araf**
+
+GitHub:  
+https://github.com/asm-araf
+
+---
+
+## ⭐ Support
+
+If you find this project useful, consider giving the repository a ⭐ on GitHub.
