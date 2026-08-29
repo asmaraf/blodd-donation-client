@@ -21,7 +21,7 @@ The application is built with **React 18, Vite, Tailwind CSS, React Router, and 
 
 ## 📸 Application Screenshot
 
-![BloodLife Application](assets/Screenshot.png)
+![BloodLife Application](Screenshot.png)
 
 ## ✨ Key Features
 
